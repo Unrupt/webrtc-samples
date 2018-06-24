@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <title>Stream Audio Preprocessor</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"  />
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            .btn-fn {
+                display: block;
+                width: 70%;
+                max-width: 300px;
+                margin: 15px auto;
+            }
+            #audio {
+                display: block;
+                width: 70%;
+                max-width: 300px;
+                margin: 10px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 class="w3-center">Audio Stream Preprocessor</h2>
+        <p class="w3-center">The aim of this sample is to edit the stream before sending it</p>
+        <audio id="audio" playsinline="true" controls autoplay></audio><br>
+        <button class="btn-fn" onclick="start()">Start!</button>
+        <button class="btn-fn" onclick="toggleMute(this)">Mute</button>
+        <script src="static/pre-process-stream.js?v=1.0.13" ></script>
+    </body>
+</html>
