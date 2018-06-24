@@ -2,29 +2,43 @@
 <html lang="en">
 
     <head>
-        <title>Stream Gain Controller</title>
+        <title>Gain Controller</title>
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"  />
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            .btn-fn {
+                display: block;
+                width: 70%;
+                max-width: 300px;
+                margin: 15px auto;
+            }
+            #audio {
+                display: block;
+                width: 70%;
+                max-width: 300px;
+                margin: 10px auto;
+            }
+        </style>
     </head>
     <body>
+        <h2 class="w3-center">Media Stream with Gain Control</h2>
+        <p class="w3-center">The aim of this sample is to control the gain of the stream</p>
         <audio id="audio" playsinline="true" controls autoplay></audio><br>
-        <button onclick="start()">Start!</button><div id="div"></div>
-        <button onclick="updateGain()">Low Gain</button><div id="div"></div>
+        <button class="btn-fn" onclick="start()">Start!</button>
+        <button class="btn-fn" onclick="updateGain(0.001)">Low Gain</button>
+        <button class="btn-fn" onclick="updateGain(1)">Default Gain</button>
         <script src="webrtc-lib.js"></script>
         <script>
 
             var localStream;
             var gainNode;
             var ctx;
-
-            var start = () => navigator.mediaDevices.getUserMedia(
-                {
-                    audio: {
-
-                    }
-                }
-            )
+            var dst;
+            var start = () => navigator.mediaDevices.getUserMedia({audio: true})
               .then(stream => audio.srcObject = modifyGain(stream, 2.5))
               .catch(e => log(e));
 
@@ -32,7 +46,7 @@
                 localStream = stream;
               ctx = new AudioContext();
               var src = ctx.createMediaStreamSource(stream);
-              var dst = ctx.createMediaStreamDestination();
+              dst = ctx.createMediaStreamDestination();
               gainNode = ctx.createGain();
               gainNode.gain.value = gainValue;
               src.connect(gainNode);
@@ -44,8 +58,8 @@
               return stream;
             };
 
-            var updateGain = () => {
-              gainNode.gain.value = 0.00001;
+            var updateGain = (value) => {
+              gainNode.gain.value = value;
             };
 
             var log = msg => div.innerHTML += "<br>" + msg;
