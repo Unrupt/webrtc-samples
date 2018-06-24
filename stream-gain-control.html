@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <title>Gain</title>
+        <title>Stream Gain Controller</title>
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"  />
@@ -18,7 +18,13 @@
             var gainNode;
             var ctx;
 
-            var start = () => navigator.mediaDevices.getUserMedia({audio: true})
+            var start = () => navigator.mediaDevices.getUserMedia(
+                {
+                    audio: {
+
+                    }
+                }
+            )
               .then(stream => audio.srcObject = modifyGain(stream, 2.5))
               .catch(e => log(e));
 
