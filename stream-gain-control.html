@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <title>Gain</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"  />
+    </head>
+    <body>
+        <audio id="audio" playsinline="true" controls autoplay></audio><br>
+        <button onclick="start()">Start!</button><div id="div"></div>
+        <button onclick="updateGain()">Low Gain</button><div id="div"></div>
+        <script src="webrtc-lib.js"></script>
+        <script>
+
+            var localStream;
+            var gainNode;
+            var ctx;
+
+            var start = () => navigator.mediaDevices.getUserMedia({audio: true})
+              .then(stream => audio.srcObject = modifyGain(stream, 2.5))
+              .catch(e => log(e));
+
+            var modifyGain = (stream, gainValue) => {
+                localStream = stream;
+              ctx = new AudioContext();
+              var src = ctx.createMediaStreamSource(stream);
+              var dst = ctx.createMediaStreamDestination();
+              gainNode = ctx.createGain();
+              gainNode.gain.value = gainValue;
+              src.connect(gainNode);
+              gainNode.connect(dst);
+              outputStream = dst.stream;
+              stream.addTrack(outputStream.getAudioTracks()[0]);
+              stream.removeTrack(stream.getAudioTracks()[0]);
+              //[src, gainNode, dst].reduce((a, b) => a && a.connect(b));
+              return stream;
+            };
+
+            var updateGain = () => {
+              gainNode.gain.value = 0.00001;
+            };
+
+            var log = msg => div.innerHTML += "<br>" + msg;
+        </script>
+    </body>
+</html>
