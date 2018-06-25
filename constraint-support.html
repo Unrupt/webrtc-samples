@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <title>Stream Gain Controller</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"  />
+        <style>
+            body {
+              font: 15px Arial, sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Learn about this code on MDN: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getSupportedConstraints -->
+
+        <p>The following media constraints are supported by your browser:</p>
+
+        <ul id="constraintList">
+        </ul>
+
+        <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+        <script>
+            let constraintList = document.getElementById("constraintList");
+            let supportedConstraints = navigator.mediaDevices.getSupportedConstraints();
+
+            for (let constraint in supportedConstraints) {
+              if (supportedConstraints.hasOwnProperty(constraint)) {
+                let elem = document.createElement("li");
+
+                elem.innerHTML = "<code>" + constraint + "</code>";
+                constraintList.appendChild(elem);
+              }
+            }
+        </script>
+    </body>
+</html>
